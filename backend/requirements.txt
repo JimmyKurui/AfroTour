@@ -1,0 +1,11 @@
+flask==2.3.3
+flask_SQLAlchemy==3.0.3
+flash_mysql==1.5.2
+flask_mysqldb==1.0.1
+Flash-User=1.0.2.2
+Flash-Bcrypt=1.0.1
+Flash-Mail=0.9.1
+email_validator==2.0.0
+python_dotenv==0.21.1
+marshmallow==3.19.0
+geoalchemy2=0.12.1
