@@ -1,4 +1,6 @@
 from flask import Blueprint, request, jsonify
+from .models import Destination
+from . import db
 
 views = Blueprint('views',__name__)
 
@@ -19,7 +21,7 @@ def destinations():
             Destination.Activities,
             Destination.Travel_Tips,
             Destination.Transportation,
-            WKTElement(Destination.Geographic_Information).ST_AsText().label('Geographic_Information')
+            Destination.Geometry
         ).all()
 
         destination_list = []
@@ -33,7 +35,7 @@ def destinations():
                 'Activities': destination.Activities,
                 'Travel_Tips': destination.Travel_Tips,
                 'Transportation': destination.Transportation,
-                'Geographic_Information': destination.Geographic_Information,
+                'Geometry': destination.Geometry,
             }
             destination_list.append(destination_data)
         return jsonify(destination_list)
@@ -43,12 +45,12 @@ def destinations():
         new_destination = Destination(
             Country=data.get('Country'),
             area=data.get('area'),
-            Geographic_Information=WKTElement(data.get('Geographic_Information')),
             Attraction=data.get('attraction'),
             Accommodations=data.get('Accommodations'),
             Activities=data.get('Activities'),
             Travel_Tips=data.get('Travel_Tips'),
             Transportation=data.get('Transportation')
+            Geometry=data.get('Geometry'),
         )
 
         db.session.add(new_destination)

@@ -1,11 +1,15 @@
 from flask import Blueprint, request, jsonify
+from .models import User
+from werkzeug.security import generate_password_hash, check_password_hash
+from . import db   ##means from __init__.py import db
+from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth',__name__)
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return "You're already logged in"
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data, password=form.password.data)
@@ -30,7 +34,4 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
-# from models import User 
-from views import views 
-from auth import auth 
+    return redirect(url_for('views.home'))
