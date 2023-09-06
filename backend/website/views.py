@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from .models import Destination
 from . import db
 
@@ -6,7 +6,7 @@ views = Blueprint('views',__name__)
 
 @views.route('/')
 def home():
-    return "Hello"
+    return render_template("home.html")
 
 @views.route('/destinations', methods=['GET', 'POST'])
 def destinations():
@@ -49,7 +49,7 @@ def destinations():
             Accommodations=data.get('Accommodations'),
             Activities=data.get('Activities'),
             Travel_Tips=data.get('Travel_Tips'),
-            Transportation=data.get('Transportation')
+            Transportation=data.get('Transportation'),
             Geometry=data.get('Geometry'),
         )
 
